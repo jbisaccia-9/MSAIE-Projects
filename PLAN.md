@@ -129,3 +129,8 @@ the Professionalism & Ethics material.
 Module 01 hands-only ("hint only"). Modules 02+: pair freely; `# YOU:` blocks
 are yours. For work material: bring me *patterns and synthetic examples*, never
 real org data — same firewall, this machine is the personal side of it.
+
+House rule (in ~/.claude/CLAUDE.md): anything new or unfamiliar — a terminal
+command, an algorithm, an idiom — comes with a brief 101 breakdown, inline in
+the docs and code, scaled to how much it matters. If something shows up
+unexplained and it's not basic Python/git, call it out; that's a bug.

@@ -61,6 +61,20 @@ EOF
 chmod +x .git/hooks/pre-push
 ```
 
+**What that block actually does (101):**
+- `cat > FILE << 'EOF' ... EOF` is a **heredoc** — "take everything between
+  here and the line `EOF` and write it into FILE." The quotes around `'EOF'`
+  mean "write it literally, don't expand `$variables` first."
+- `.git/hooks/` is a folder where git looks for scripts to run at key moments;
+  a file named `pre-push` runs automatically right before every push, and if
+  it exits non-zero (our `fail=1`), git cancels the push.
+- `git grep -nIE '...'` searches all *tracked* files for a **regex** (pattern
+  language: `sk-ant-[A-Za-z0-9_-]{8,}` = "the literal text `sk-ant-` followed
+  by 8+ letters/digits/underscores/dashes" — i.e., the shape of a real API
+  key). `-n` shows line numbers, `-I` skips binary files, `-E` enables the
+  richer regex syntax, and the `|` between patterns means OR.
+- `chmod +x` marks the file executable — without it, git silently ignores the hook.
+
 ## Step 4 — First commit
 
 ```bash
@@ -95,6 +109,14 @@ git config alias.ship '!f(){ git add -A && git commit -m "${1:-ship: $(date +%F)
 
 Usage: `git ship "week 1: ex01-ex03 done"` — stages, commits, pushes, with
 the Step 3 gate screening every push.
+
+**101:** a git **alias** is a custom shorthand command stored in this repo's
+config. The leading `!` means "run this as a shell command, not a git
+subcommand." `f(){ ...; }; f` defines a tiny throwaway function and
+immediately calls it — the standard trick for aliases that take an argument.
+`"${1:-ship: $(date +%F)}"` means "use the first argument you gave me as the
+commit message; if you gave none, default to `ship: 2026-07-04`" (`$1` = first
+argument, `:-` = fallback if empty, `date +%F` = today as YYYY-MM-DD).
 
 ## Step 8 — Git reflexes (10 min of reps)
 

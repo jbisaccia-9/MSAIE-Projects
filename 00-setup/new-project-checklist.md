@@ -60,6 +60,9 @@ EOF
 chmod +x .git/hooks/pre-push
 ```
 
+*(New to any syntax in that block — heredoc, regex, hooks, chmod? Full 101
+breakdown lives in `00-setup/README.md` under Step 3.)*
+
 ## 5. First commit, then create the remote FROM HERE (no web UI, no IDE buttons)
 
 ```bash
@@ -76,6 +79,13 @@ gh repo create PROJECT-NAME --public --source . --remote origin --push
 ```bash
 cd "$(mktemp -d)" && git clone --depth 1 https://github.com/jbisaccia-9/PROJECT-NAME.git && ls -R PROJECT-NAME | head -30
 ```
+
+**101:** `mktemp -d` creates a fresh throwaway folder and prints its path;
+`$(...)` captures that printed path so `cd` can jump into it. `--depth 1`
+clones only the latest snapshot instead of full history (faster). `ls -R`
+lists folders recursively, and `| head -30` pipes that listing into `head`,
+which keeps just the first 30 lines. The point of the whole line: look at
+what GitHub *actually has*, not what your local folder claims.
 
 ## Public or private? (decide in step 5, not after)
 
