@@ -1,0 +1,11 @@
+Trading notes — week of June 22, 2026
+
+Retired the $1,000-by-July goal. New framing: small disciplined stake,
+learning-first, reconcile against the broker every session.
+
+Rules that stay: no fossil fuels, no gunmakers, no PLTR, no TSLA, no META.
+Position sizing: risk max 2% per trade. Morning loop leads with a live
+portfolio snapshot before anything else runs.
+
+Open question: is the momentum scan adding anything, or am I just buying
+whatever moved yesterday? Need an eval for this, not a feeling.
