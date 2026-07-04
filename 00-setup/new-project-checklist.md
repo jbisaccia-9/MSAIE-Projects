@@ -45,7 +45,7 @@ local databases, exports).
 cat > .git/hooks/pre-push << 'EOF'
 #!/bin/bash
 fail=0
-if git grep -nIE 'sk-ant-[A-Za-z0-9_-]{8,}|gho_[A-Za-z0-9]{16,}|ghp_[A-Za-z0-9]{16,}|github_pat_|AKIA[A-Z0-9]{12,}|ASIA[A-Z0-9]{12,}|xox[baprs]-|AIza[A-Za-z0-9_-]{10,}|BEGIN [A-Z ]*PRIVATE KEY|eyJ[A-Za-z0-9_-]{20,}\.eyJ' -- .; then
+if git grep -nIE 'sk-ant-[A-Za-z0-9_-]{8,}|gho_[A-Za-z0-9]{16,}|ghp_[A-Za-z0-9]{16,}|github_pat_[A-Za-z0-9_]{10,}|AKIA[A-Z0-9]{12,}|ASIA[A-Z0-9]{12,}|xox[baprs]-|AIza[A-Za-z0-9_-]{10,}|BEGIN [A-Z ]*PRIVATE KEY|eyJ[A-Za-z0-9_-]{20,}\.eyJ' -- .; then
   echo "🚫 BLOCKED: secret-looking content above."; fail=1
 fi
 if git ls-files | grep -iE '(^|/)(\.env(\..*)?|\.claude\.json|.*\.pem|.*\.key)$|(^|/)(Trading Agent|Medical|Finances|Mortgage|Personal|Professional)(/|$)'; then

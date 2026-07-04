@@ -1,6 +1,7 @@
 # Secrets — never committed, no exceptions
 .env
 .env.*
+!.env.example
 *.pem
 *.key
 
