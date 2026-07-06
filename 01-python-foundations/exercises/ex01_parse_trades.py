@@ -10,6 +10,9 @@ No imports needed. Hands only.
 
 Run:  python3 ex01_parse_trades.py
 """
+from logging import log
+from os.path import split
+from string import digits
 
 
 def parse_trade(line):
@@ -23,7 +26,14 @@ def parse_trade(line):
     Extra whitespace around the line should not break you (see tests).
     """
     # YOU: implement this
-    raise NotImplementedError
+    t_parts = line.split()
+    return {
+        "date": t_parts[0],
+        "side": t_parts[1],
+        "qty": int(t_parts[2]),
+        "symbol": t_parts[3],
+        "price": float(t_parts[5])}
+
 
 
 def trade_value(trade):
@@ -34,7 +44,11 @@ def trade_value(trade):
     Output: 365.37
     """
     # YOU: implement this
-    raise NotImplementedError
+
+
+    return round(trade["qty"] * trade["price"],2)
+    return s_trade(x, 2)
+
 
 
 def format_trade(trade):
@@ -47,8 +61,8 @@ def format_trade(trade):
     Price always shows exactly 2 decimal places ("121.79", "5.50", "100.00").
     Hint: f-string format specs. Look up what {x:.2f} does.
     """
-    # YOU: implement this
-    raise NotImplementedError
+
+    return f"{trade['date']} {trade['side']} {trade['qty']} {trade['symbol']} @ {trade['price']:.2f}"
 
 
 # ---------------------------------------------------------------- tests --
