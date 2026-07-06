@@ -10,11 +10,6 @@ No imports needed. Hands only.
 
 Run:  python3 ex01_parse_trades.py
 """
-from logging import log
-from os.path import split
-from string import digits
-
-
 def parse_trade(line):
     """Parse one log line into a dict.
 
@@ -46,8 +41,7 @@ def trade_value(trade):
     # YOU: implement this
 
 
-    return round(trade["qty"] * trade["price"],2)
-    return s_trade(x, 2)
+    return round(trade["qty"] * trade["price"], 2)
 
 
 
