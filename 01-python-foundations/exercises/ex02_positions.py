@@ -20,7 +20,7 @@ TRADES = [
 
 def current_positions(trades):
     """Return {symbol: net_shares} for symbols with a non-zero net position.
-
+=
     BUY adds shares, SELL subtracts. Symbols that net to exactly 0 are
     EXCLUDED from the result.
 
@@ -28,8 +28,23 @@ def current_positions(trades):
     SOFI nets to 1  →  {"NVDA": 1, "SOFI": 1}
     """
     # YOU: implement this
-    raise NotImplementedError
 
+    net_shares = {}
+    for t in trades:
+        symbol = t["symbol"]
+        if t ["side"] == "BUY":
+            net_shares[symbol] = net_shares.get(symbol, 0) + t["qty"]
+        elif t ["side"] == "SELL":
+            net_shares[symbol] = net_shares.get(symbol, 0) - t["qty"]
+
+
+    kept = {}
+    for symbol, qty in net_shares.items():
+        if qty != 0:
+            kept[symbol] = qty
+    return kept
+
+    return net_shares
 
 def cash_flow(trades):
     """Return net cash flow, rounded to 2 dp. BUYs cost money (negative),
