@@ -22,3 +22,6 @@ __pycache__/
 
 # Personal documents — enrollment agreement etc. stay off GitHub
 *.pdf
+
+# Personal strategy — stays local, never published
+CAREER.md
