@@ -54,8 +54,14 @@ def cash_flow(trades):
       -360.00 (buy NVDA) -420.00 (buy AAPL) -236.00 (buy NVDA)
       +500.00 (sell NVDA) -9.50 (buy SOFI) +410.00 (sell AAPL) = -115.50
     """
-    # YOU: implement this
-    raise NotImplementedError
+
+    total = 0  # single-number accumulator — this replaces the dict
+    for t in trades:  # the loop from your last draft — it was right!
+        if t["side"] == "BUY":
+            total = total - (t["qty"] * t["price"])
+        elif t["side"] == "SELL":
+            total = total + (t["qty"] * t["price"])
+    return round(total, 2)  # round the FINAL total, once, after the loop
 
 
 def biggest_trade(trades):
@@ -63,7 +69,7 @@ def biggest_trade(trades):
     (qty * price). Ties: first one wins.
     """
     # YOU: implement this
-    raise NotImplementedError
+   # raise NotImplementedError
 
 
 def trades_by_symbol(trades):
@@ -73,7 +79,7 @@ def trades_by_symbol(trades):
     codebase you ever touch. Hint: dict + append, or look up dict.setdefault.
     """
     # YOU: implement this
-    raise NotImplementedError
+   # raise NotImplementedError
 
 
 # ---------------------------------------------------------------- tests --
