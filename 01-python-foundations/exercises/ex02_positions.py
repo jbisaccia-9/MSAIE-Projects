@@ -1,13 +1,4 @@
-"""
-ex02 — Positions & P&L (lists, dicts, loops, accumulation)
-
-Given a list of parsed trades (the dicts from ex01), compute what you own
-and how you've done. This is the pattern behind half of all real code:
-loop over records, accumulate into a dict.
-
-Run:  python3 ex02_positions.py
-"""
-
+#dict highlighting various hypothetical trades from moneybot agent trading bot
 TRADES = [
     {"date": "2026-06-22", "side": "BUY",  "qty": 3, "symbol": "NVDA", "price": 120.00},
     {"date": "2026-06-23", "side": "BUY",  "qty": 2, "symbol": "AAPL", "price": 210.00},
@@ -17,18 +8,16 @@ TRADES = [
     {"date": "2026-06-29", "side": "SELL", "qty": 2, "symbol": "AAPL", "price": 205.00},
 ]
 
-
+#determines the total net shares of a stock post trade
 def current_positions(trades):
     """Return {symbol: net_shares} for symbols with a non-zero net position.
-=
+
     BUY adds shares, SELL subtracts. Symbols that net to exactly 0 are
     EXCLUDED from the result.
 
     For TRADES above: NVDA nets to 1 (3+2-4), AAPL nets to 0 (drop it),
     SOFI nets to 1  →  {"NVDA": 1, "SOFI": 1}
     """
-    # YOU: implement this
-
     net_shares = {}
     for t in trades:
         symbol = t["symbol"]
@@ -37,15 +26,14 @@ def current_positions(trades):
         elif t ["side"] == "SELL":
             net_shares[symbol] = net_shares.get(symbol, 0) - t["qty"]
 
-
+#returns the qty of a stock as long as it is not zero
     kept = {}
     for symbol, qty in net_shares.items():
         if qty != 0:
             kept[symbol] = qty
     return kept
 
-    return net_shares
-
+#determines the total value of a stock holding post trade, rounded 2 decimal places
 def cash_flow(trades):
     """Return net cash flow, rounded to 2 dp. BUYs cost money (negative),
     SELLs bring money in (positive).
@@ -54,35 +42,31 @@ def cash_flow(trades):
       -360.00 (buy NVDA) -420.00 (buy AAPL) -236.00 (buy NVDA)
       +500.00 (sell NVDA) -9.50 (buy SOFI) +410.00 (sell AAPL) = -115.50
     """
-
-    total = 0  # single-number accumulator — this replaces the dict
-    for t in trades:  # the loop from your last draft — it was right!
+    total = 0  # single-number accumulator — replaces the dict reference
+    for t in trades:  # the loop
         if t["side"] == "BUY":
             total = total - (t["qty"] * t["price"])
         elif t["side"] == "SELL":
             total = total + (t["qty"] * t["price"])
-    return round(total, 2)  # round the FINAL total, once, after the loop
+    return round(total, 2)  # rounds the FINAL total, once, after the loop
 
-
+#iterates through the trades list to determine the largest trade
 def biggest_trade(trades):
-    #Return the SYMBOL of the trade with the largest dollar value
-    #(qty * price). Ties: first one wins.
-    
-    high = 0  
-    for h in trades:  # the loop from your last draft — it was right!
-        if h["side"] == "BUY":
-            high = high - (h["qty"] * h["price"])
-        elif h["side"] == "SELL":
-            high = high + (h["qty"] * h["price"])
-
+    """Return the SYMBOL of the trade with the largest dollar value
+    (qty * price). Ties: first one wins.
+    """
+    #returns symbol of largest trade: max measures each trade via the lambda
+    #(qty * price), returns the winning trade DICT, then ["symbol"] plucks the answer
     return max(trades, key=lambda h: h["qty"] * h["price"])["symbol"]
 
 
 def trades_by_symbol(trades):
-    '''Group trades into {symbol: [trade, trade, ...]} preserving order.
+    """Group trades into {symbol: [trade, trade, ...]} preserving order.
 
     This exact pattern (group records by key) will show up in every
-    codebase you ever touch. Hint: dict + append, or look up dict.setdefault.'''
+    codebase you ever touch.
+    """
+    #iterates through trades and groups each trade under its symbol
     symbols = {}
     for s in trades:
         if s["side"] == "BUY":
@@ -90,9 +74,8 @@ def trades_by_symbol(trades):
         elif s["side"] == "SELL":
             symbols[s["symbol"]] = symbols.get(s["symbol"], []) + [s]
 
+#returns the symbol of the symbol by trades
     return symbols
-    # YOU: implement this
-   # raise NotImplementedError
 
 
 # ---------------------------------------------------------------- tests --
