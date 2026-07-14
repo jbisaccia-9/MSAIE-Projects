@@ -65,19 +65,32 @@ def cash_flow(trades):
 
 
 def biggest_trade(trades):
-    """Return the SYMBOL of the trade with the largest dollar value
-    (qty * price). Ties: first one wins.
-    """
-    # YOU: implement this
-   # raise NotImplementedError
+    #Return the SYMBOL of the trade with the largest dollar value
+    #(qty * price). Ties: first one wins.
+    
+    high = 0  
+    for h in trades:  # the loop from your last draft — it was right!
+        if h["side"] == "BUY":
+            high = high - (h["qty"] * h["price"])
+        elif h["side"] == "SELL":
+            high = high + (h["qty"] * h["price"])
+
+    return max(trades, key=lambda h: h["qty"] * h["price"])["symbol"]
 
 
 def trades_by_symbol(trades):
-    """Group trades into {symbol: [trade, trade, ...]} preserving order.
+    '''Group trades into {symbol: [trade, trade, ...]} preserving order.
 
     This exact pattern (group records by key) will show up in every
-    codebase you ever touch. Hint: dict + append, or look up dict.setdefault.
-    """
+    codebase you ever touch. Hint: dict + append, or look up dict.setdefault.'''
+    symbols = {}
+    for s in trades:
+        if s["side"] == "BUY":
+            symbols[s["symbol"]] = symbols.get(s["symbol"], []) + [s]
+        elif s["side"] == "SELL":
+            symbols[s["symbol"]] = symbols.get(s["symbol"], []) + [s]
+
+    return symbols
     # YOU: implement this
    # raise NotImplementedError
 
