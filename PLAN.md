@@ -88,6 +88,8 @@ Specializations: **Mathematics for AI Engineering + Cloud Applications** (unchan
 
 ## Phases
 
+> **Official cohort dates locked (Jul 17, 2026 — see Google Drive › "Quantic MSAIE — Class of Sept 2027" for the full calendar + per-course one-sheeters).** Corrections vs. the estimates below: Web App unit runs **Sep 14–Oct 18** (build module 09 in early Sep, not Oct); Testing/CI-CD **Oct 19–Nov 15**; AI Eng Techniques **Nov 16–Jan 10** (project straddles Winter Break — finish by Dec 21); Software Design **Jan 18–Feb 21** (module 04 refactor in Jan); ML unit **Feb 22–Apr 18** (start module 05 math in late Jan); Org Transformation **Apr 19–May 23**; Microservices **May 31–Jun 27**; capstone kickoff **May 24, 2027**, due **Aug 29, 2027**. ⚠️ The capstone is a **TEAM project** — P2 (Companion) becomes the *pitch you bring to a team*, not a solo build. Do specialization coursework early (Math spec before the ML unit); only 2 highest spec exam scores count.
+
 **Phase 0 — ramp (Jul 6–19), unchanged and MORE important now.**
 Week 1: `00-setup` + ex01–ex03. Week 2: ex04–ex05 + agent skeleton running.
 Hands only. The job makes this non-negotiable: you'll be reviewing and
