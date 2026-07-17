@@ -11,9 +11,9 @@ Rule you're implementing (a classic risk rule):
 
 Run:  python3 ex03_position_sizing.py
 """
+import math
 
-
-def shares_to_buy(account_value, risk_pct, entry_price, stop_price):
+def shares_to_buy( account_value, risk_pct, entry_price, stop_price):
     """How many WHOLE shares can I buy risking at most risk_pct of account?
 
     Logic:
@@ -37,9 +37,25 @@ def shares_to_buy(account_value, risk_pct, entry_price, stop_price):
              only allowed fewer via floor(account_value / entry_price), that
              cap wins instead.
     """
-    # YOU: implement this
-    raise NotImplementedError
+    #dollars_at_risk = account_value * (risk_pct / 100)
+    #risk_per_share = entry_price - stop_price
+    #shares = math.floor(dollars_at_risk / risk_per_share)
 
+    if account_value <= 0:
+        raise ValueError(f"account_value must be > 0, got {account_value}")
+    if risk_pct <= 0 or risk_pct > 100:
+        raise ValueError(f"risk_pct must be between 0-100, got {risk_pct}")
+    if entry_price <= 0:
+        raise ValueError(f"entry price must be > 0, got {entry_price}")
+    if stop_price >= entry_price:
+        raise ValueError(f"stop_price must be less than entry_price, got {stop_price}")
+
+    dollars_at_risk = account_value * (risk_pct / 100)
+    risk_per_share = entry_price - stop_price
+    shares = math.floor(dollars_at_risk / risk_per_share)
+
+    affordable = math.floor(account_value / entry_price)
+    return min(shares, affordable)
 
 def safe_shares_to_buy(account_value, risk_pct, entry_price, stop_price):
     """Wrapper that never raises: returns (shares, None) on success or
