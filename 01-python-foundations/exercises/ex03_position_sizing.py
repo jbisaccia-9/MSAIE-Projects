@@ -11,8 +11,12 @@ Rule you're implementing (a classic risk rule):
 
 Run:  python3 ex03_position_sizing.py
 """
-import math
 
+import math
+#imports the math library for rounding to min/max etc.
+
+
+#function to determine shares to buy based on account value and risk levels
 def shares_to_buy( account_value, risk_pct, entry_price, stop_price):
     """How many WHOLE shares can I buy risking at most risk_pct of account?
 
@@ -41,6 +45,7 @@ def shares_to_buy( account_value, risk_pct, entry_price, stop_price):
     #risk_per_share = entry_price - stop_price
     #shares = math.floor(dollars_at_risk / risk_per_share)
 
+    #boolean logic for value errors
     if account_value <= 0:
         raise ValueError(f"account_value must be > 0, got {account_value}")
     if risk_pct <= 0 or risk_pct > 100:
@@ -50,13 +55,16 @@ def shares_to_buy( account_value, risk_pct, entry_price, stop_price):
     if stop_price >= entry_price:
         raise ValueError(f"stop_price must be less than entry_price, got {stop_price}")
 
+    #calcs for variables in use
     dollars_at_risk = account_value * (risk_pct / 100)
     risk_per_share = entry_price - stop_price
     shares = math.floor(dollars_at_risk / risk_per_share)
 
+    #calculates if a stock purchase is affordable, then returns the min number of shares that qualify
     affordable = math.floor(account_value / entry_price)
     return min(shares, affordable)
 
+#function to determine if quantity of shares to buy is safe relative to account holdings
 def safe_shares_to_buy(account_value, risk_pct, entry_price, stop_price):
     """Wrapper that never raises: returns (shares, None) on success or
     (0, error_message_string) if shares_to_buy raised ValueError.
@@ -67,8 +75,13 @@ def safe_shares_to_buy(account_value, risk_pct, entry_price, stop_price):
     hide real bugs (like a typo'd variable name) — that's why the last
     test checks that TypeErrors still escape.
     """
-    # YOU: implement this
-    raise NotImplementedError
+    # try/catch for ValueError...returns result+None if no error, catches the error if present
+    try:
+        result = shares_to_buy(account_value, risk_pct, entry_price, stop_price)
+        return (result, None)
+
+    except ValueError as e:
+        return (0, str(e))
 
 
 # ---------------------------------------------------------------- tests --
